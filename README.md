@@ -1,4 +1,4 @@
-MillionCrypto Mobile App
+#MillionCrypto Mobile App
 
 A cross-platform React Native application built with TypeScript that displays cryptocurrency data in USD. The app provides an infinite-scrolling list of coins, detailed views with historical charts, and customizable theme support for both iOS and Android.
 
@@ -149,8 +149,3 @@ Open a Pull Request
 
 Please follow the code style and include tests for new functionality.
 
-License
-
-This project is licensed under the MIT License. Please see the LICENSE file for details.
-
-# millionCrypto

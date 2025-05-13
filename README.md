@@ -1,97 +1,155 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+MillionCrypto Mobile App
 
-# Getting Started
+A cross-platform React Native application built with TypeScript that displays cryptocurrency data in USD. The app provides an infinite-scrolling list of coins, detailed views with historical charts, and customizable theme support for both iOS and Android.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Features
 
-## Step 1: Start Metro
+Infinite Scroll List: Fetches pages of cryptocurrencies from Coinlore API using React Query's useInfiniteQuery.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Search & Filter: Filter list by price range and sort parameters.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Detail Screen: Shows current price, 1h/24h/7d changes, market cap, volumes, supply, and a 7-day historical chart.
 
-```sh
-# Using npm
-npm start
+Real-time Updates: Detail data refetches automatically every minute via refetchInterval.
 
-# OR using Yarn
-yarn start
-```
+Error Handling: Dedicated error screen with retry.
 
-## Step 2: Build and run your app
+Splash Screen: Intro loading screen while initializing.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Settings: Theme toggle (light/dark), manual data refresh, app version info.
 
-### Android
+About: Application metadata and credits.
 
-```sh
-# Using npm
-npm run android
+Theming: Centralized color and metrics tokens.
 
-# OR using Yarn
-yarn android
-```
+Performance: Optimized lists with FlashList, cached API calls, and memoized components.
 
-### iOS
+Documentation: JSDoc comments, typed APIs, and clear folder structure.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+Testing (optional): Unit tests for services and components.
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Architecture
 
-```sh
-bundle install
-```
+The codebase follows a layered, OOP-inspired structure:
 
-Then, and every time you update your native dependencies, run:
+/src/infrastructure: API client (axiosClient), services (CryptoService, HistoricalService), and React Query hooks.
 
-```sh
-bundle exec pod install
-```
+/src/presentation: UI layer with screens, navigation, components, and theme.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+navigation/: React Navigation setup (Stack, Tabs, Drawer).
 
-```sh
-# Using npm
-npm run ios
+screens/: All screens (Splash, CryptoList, CryptoDetail, Error, Settings, About).
 
-# OR using Yarn
-yarn ios
-```
+components/: Reusable components like CryptoCard, CryptoHistoryChart, FloatingSidebar.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+theme/: Color palette (Colors), metrics tokens (Metrics).
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+/src/application: Business logic, view models, and shared utilities.
 
-## Step 3: Modify your app
+Data flows from services to hooks to screens, with components purely responsible for rendering.
 
-Now that you have successfully run the app, let's make changes!
+Folder Structure
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+src/
+├── application/
+│   ├── lib/            # Business logic, use cases, providers
+│   └── providers/      # Dependency injection providers
+├── infrastructure/
+│   ├── config/         # axiosClient, environment configs
+│   └── queries/        # React Query hooks (useFetchTickers, useFetchTickerDetail, useMarketChart)
+└── presentation/
+    ├── assets/         # Images, icons, fonts
+    ├── components/     # Reusable UI components (CryptoCard, CryptoHistoryChart, etc.)
+    ├── feature/        # Feature-specific modules and contexts
+    ├── navigation/     # React Navigation setup (Stack, Tab, Drawer)
+    ├── screens/        # Screen components (Splash, List, Detail, etc.)
+    └── theme/          # Colors, metrics, typography tokens
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+__tests__/
+├── components/        # Unit and snapshot tests for components
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+android/
+ios/
+node_modules/
 
-## Congratulations! :tada:
+Installation & Setup
 
-You've successfully run and modified your React Native App. :partying_face:
+Clone the repository:
 
-### Now what?
+git clone https://github.com/yourusername/millioncrypto.git
+cd millioncrypto
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Install dependencies:
 
-# Troubleshooting
+yarn install
+# or
+npm install
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+iOS setup (macOS only):
 
-# Learn More
+cd ios && pod install && cd ..
 
-To learn more about React Native, take a look at the following resources:
+Run Metro bundler with alias reset:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+yarn start --reset-cache
+
+Launch on simulator/device:
+
+iOS: yarn ios (requires Xcode)
+
+Android: yarn android (requires Android SDK)
+
+Scripts
+
+yarn ios – Run on iOS simulator
+
+yarn android – Run on Android emulator
+
+yarn start – Metro bundler
+
+yarn test – Run unit tests (if configured)
+
+yarn lint – ESLint code analysis
+
+Testing
+
+(Optional)
+
+Unit tests for services (fetchTickers, fetchTickerDetail, fetchMarketChart).
+
+Component snapshots for CryptoCard and screens.
+
+Run:
+
+yarn test
+
+Best Practices
+
+TypeScript Strict: Ensure no any types leak.
+
+React Query: Cache and background refetch for real-time data.
+
+Performance: Use FlashList, memoization, and virtualization.
+
+Theming: Centralize colors and metrics for consistency.
+
+Accessibility: Proper accessibilityLabel, focus management on Pressable.
+
+Contributing
+
+Fork the repo
+
+Create a feature branch (git checkout -b feature/xyz)
+
+Commit your changes (git commit -m "feat: add xyz")
+
+Push (git push origin feature/xyz)
+
+Open a Pull Request
+
+Please follow the code style and include tests for new functionality.
+
+License
+
+This project is licensed under the MIT License. Please see the LICENSE file for details.
+

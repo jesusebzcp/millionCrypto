@@ -63,7 +63,7 @@ export const CryptoListScreen = ({navigation}: CryptoListScreenProps) => {
                 }
               />
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item?.id}
             contentContainerStyle={styles.list}
             estimatedItemSize={100}
             onEndReached={loadMore}

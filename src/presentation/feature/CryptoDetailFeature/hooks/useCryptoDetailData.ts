@@ -1,6 +1,7 @@
 import {useFetchTickerDetail} from '@infra/queries/useFetchTickerDetail';
 import {Colors} from '@pr/theme/Colors';
 import {useCallback, useMemo} from 'react';
+import {Share} from 'react-native';
 
 type useCryptoDetailDataProps = {
   id: string;
@@ -26,7 +27,24 @@ export const useCryptoDetailData = ({id}: useCryptoDetailDataProps) => {
     return {values: vals, labels: labs};
   }, [coin]);
 
-  const onShare = useCallback(() => {}, []);
+  const onShare = useCallback(() => {
+    if (!coin) {
+      return;
+    }
+
+    const message =
+      `${coin.name} (${coin.symbol})\n` +
+      `Price: $${parseFloat(coin.price_usd).toFixed(2)} USD\n` +
+      `24h Change: ${parseFloat(coin.percent_change_24h).toFixed(2)}%\n\n` +
+      'Data from Coinlore';
+
+    Share.share(
+      {message},
+      {
+        dialogTitle: `Share ${coin.name} details`,
+      },
+    ).catch(err => console.error('Share error', err));
+  }, [coin]);
 
   const price = coin ? parseFloat(coin.price_usd).toFixed(2) : '--';
   const change24 = coin ? parseFloat(coin.percent_change_24h) : 0;

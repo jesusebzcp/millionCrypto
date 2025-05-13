@@ -50,27 +50,29 @@ export const CryptoListScreen = ({navigation}: CryptoListScreenProps) => {
       loading={isLoading}>
       <View style={styles.container}>
         <Header lastUpdate={lastUpdate} />
-        <FlashList
-          data={items as Crypto[]}
-          renderItem={({item}) => (
-            <CryptoCard
-              {...(item as Crypto)}
-              onSelectCard={id =>
-                navigation.navigate(Screens.Detail, {
-                  id,
-                })
-              }
-            />
-          )}
-          keyExtractor={item => item!.id}
-          contentContainerStyle={styles.list}
-          estimatedItemSize={100}
-          onEndReached={loadMore}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={RenderFooterList}
-          onRefresh={onRefresh}
-          refreshing={status === 'pending'}
-        />
+        {items && items.length > 0 && (
+          <FlashList
+            data={items as Crypto[]}
+            renderItem={({item}) => (
+              <CryptoCard
+                {...(item as Crypto)}
+                onSelectCard={id =>
+                  navigation.navigate(Screens.Detail, {
+                    id,
+                  })
+                }
+              />
+            )}
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.list}
+            estimatedItemSize={100}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={RenderFooterList}
+            onRefresh={onRefresh}
+            refreshing={status === 'pending'}
+          />
+        )}
       </View>
     </ContainerFetchingStatus>
   );

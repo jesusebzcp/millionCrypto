@@ -13,7 +13,11 @@ export const RenderFooterList = ({
   }
   return (
     <View style={styles.footer}>
-      <ActivityIndicator size="small" color={Colors.primaryAccent} />
+      <ActivityIndicator
+        testID="activity-indicator"
+        size="small"
+        color={Colors.primaryAccent}
+      />
     </View>
   );
 };

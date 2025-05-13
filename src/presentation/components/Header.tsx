@@ -1,8 +1,7 @@
 import {Colors} from '@pr/theme/Colors';
 import {Images} from '@pr/theme/Images';
 import {Metrics} from '@pr/theme/Metrics';
-import {Image, StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-gesture-handler';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {formatDate} from '@app/lib/formatDate';
 
